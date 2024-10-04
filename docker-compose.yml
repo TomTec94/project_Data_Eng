@@ -23,6 +23,7 @@ services:
 
   producer:
     build: ./producer
+    command: ["./wait-for", "kafka:9092", "--", "python", "producer.py"]
     depends_on:
     - kafka
     environment:
@@ -34,7 +35,7 @@ services:
 
   consumer:
     build: ./consumer
-    command: python consumer.py
+    command: ["./wait-for", "kafka:9092", "--", "python", "consumer.py"]
     depends_on:
       - kafka
       - mongodb
