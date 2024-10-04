@@ -61,6 +61,8 @@ docker-compose up
 
 ## Troubleshooting Tips
 
+- **Producer.py / Consumer.py are not runnuing**: It can take some time at first start till kafka and mongoDB is started complete.
+  If you check with `docker ps`  and there are not the consumer and producer are listed then try to start all containers again with `docker-compose up`
 - **NoBrokersAvailable**: Ensure Kafka is running and the correct port is exposed.
 - **MongoDB Connection Issues**: Check the connection string and verify MongoDB container is up.
 
