@@ -16,7 +16,7 @@ This project is a containerized application that processes sensor data using Kaf
 ### Clone the Repository
 ```
 git clone https://github.com/TomTec94/project_Data_Eng.git
-cd TomTec94/project_Data_Eng
+cd project_Data_Eng
 ````
 ## Build and Start the Docker Containers
 
