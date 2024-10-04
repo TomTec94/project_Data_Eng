@@ -23,9 +23,9 @@ services:
 
   producer:
     build: ./producer
-    command: ["./wait-for", "kafka:9092", "--", "python", "producer.py"]
     depends_on:
     - kafka
+    command: producer.py
     environment:
     - BOOTSTRAP_SERVERS=kafka:9092
     volumes:
@@ -35,10 +35,10 @@ services:
 
   consumer:
     build: ./consumer
-    command: ["./wait-for", "kafka:9092", "--", "python", "consumer.py"]
     depends_on:
       - kafka
       - mongodb
+    command: consumer.py
     environment:
       - BOOTSTRAP_SERVERS=kafka:9092
     volumes:
