@@ -1,8 +1,11 @@
+version: '3.8'
+
 services:
   zookeeper:
     image: wurstmeister/zookeeper:latest
     ports:
       - "2181:2181"
+    restart: always
 
   kafka:
     image: wurstmeister/kafka:latest
@@ -14,34 +17,43 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
     depends_on:
       - zookeeper
-
+    restart: always
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "9092"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   mongodb:
     image: mongo:latest
     ports:
       - "27017:27017"
+    restart: always
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   producer:
     build: ./producer
     depends_on:
-    - kafka
-    command: producer.py
+      - kafka
+    restart: always
+    command: python producer.py
     environment:
-    - BOOTSTRAP_SERVERS=kafka:9092
+      - BOOTSTRAP_SERVERS=kafka:9092
     volumes:
-    - ./producer/box_ids.json:/app/box_ids.json  # file directly inside the container
-
-
+      - ./producer/box_ids.json:/app/box_ids.json
 
   consumer:
     build: ./consumer
     depends_on:
       - kafka
       - mongodb
-    command: consumer.py
+    restart: always
+    command: python consumer.py
     environment:
       - BOOTSTRAP_SERVERS=kafka:9092
     volumes:
-      - ./producer/box_ids.json:/app/box_ids.json  #  file into container
-
-
+      - ./producer/box_ids.json:/app/box_ids.json
