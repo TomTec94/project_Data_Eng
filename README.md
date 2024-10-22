@@ -4,7 +4,7 @@
 This project is a containerized application that processes sensor data using Kafka and stores it in MongoDB for further analysis.
 
 ![image](https://github.com/user-attachments/assets/9696d694-65d0-4a69-86ee-6d7b06b0340e)
-![img.png](img.png)
+
 
 ## Prerequisites
 - [Docker](https://www.docker.com/)
