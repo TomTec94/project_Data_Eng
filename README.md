@@ -74,7 +74,18 @@ docker-compose up
 
 ## Configuration Details
 
-- **Environment Variables**: Configure any required environment variables within `docker-compose.yml`. if needed
+- **Environment Variables**: Configure any required environment variables within `docker-compose.yml`. if needed. For example to change the directory.
+ ```bash
+services:
+  my_service:
+    image: my_image
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./host_directory:/container_directory
+```
+
 - **Kafka Topics & Box IDs**: Adjust in the code or configuration files as needed.
 - **Add/change Box IDs**: To add, delete or change the boxes from where the system retrieve the sensor data, change the needed box IDs in the JSON file
  ```bash
