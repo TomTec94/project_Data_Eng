@@ -4,7 +4,7 @@
 This project is a containerized application that processes sensor data using Kafka and stores it in MongoDB for further analysis.
 
 ![image](https://github.com/user-attachments/assets/9696d694-65d0-4a69-86ee-6d7b06b0340e)
-
+![img.png](img.png)
 
 ## Prerequisites
 - [Docker](https://www.docker.com/)
@@ -31,6 +31,14 @@ docker-compose up
 ```
 
 ## Check Logs
+
+I recommand to use tools like Portainer oder Docker Desktop for easy monitoring and container maintance
+But of course feel free to use the basic commands in a System prompt like PowerShell
+
+### Check running container
+```bash
+docker ps
+```
 
 ### Producer Logs:
 ```bash
@@ -61,19 +69,35 @@ docker-compose up
 
 ## Troubleshooting Tips
 
-- **Producer.py / Consumer.py are not runnuing**: It can take some time at first start till kafka and mongoDB is started complete.
-  If you check with `docker ps`  and there are not the consumer and producer are listed then try to start all containers again with `docker-compose up`
 - **NoBrokersAvailable**: Ensure Kafka is running and the correct port is exposed.
 - **MongoDB Connection Issues**: Check the connection string and verify MongoDB container is up.
 
 ## Configuration Details
 
-- **Environment Variables**: Configure any required environment variables in `.env` or within `docker-compose.yml`.
+- **Environment Variables**: Configure any required environment variables within `docker-compose.yml`. if needed
 - **Kafka Topics & Box IDs**: Adjust in the code or configuration files as needed.
+- **Add/change Box IDs**: To add, delete or change the boxes from where the system retrieve the sensor data, change the needed box IDs in the JSON file
+ ```bash
+    project_Data_Eng/producer/box_ids.json
+```
+
+![img_2.png](img_2.png)
+
+**Get Box ID: 
+- go to https://opensensemap.org/
+
+- chose an Sensorbox:
+- click on further Box information:
+- ![img_4.png](img_4.png)
+- retrieve the Box ID:
+- ![img_3.png](img_3.png)
+- Add it to the JSON list
 
 ## Next Steps for Use
 
 - **Querying MongoDB**: Use MongoDB shell or any client to query the `sensor_database` for stored data.
+- For quick Database insights you can use a build in Database module in your IDE (like the Mongo-DB module in PyCharm)
+- ![img_1.png](img_1.png)
 - **Potential Extensions**:
   - Visualization of the data using tools like Grafana.
   - Data analysis and reporting using Python or BI tools.
